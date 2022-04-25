@@ -6,22 +6,29 @@ type Props = {
     roll: number,
     completed: boolean,
     time: number
+    resetGameHandler: any
 }
 
 
-function Info({roll, completed, time}:Props) {
+function Info({roll, completed, time, resetGameHandler}:Props) {
 
     let bestScore = localStorage.getItem('tenzies-best-time')
 
     return(
         <section className="panel">
-            {!completed && roll && <Rolls roll={roll} />}
-            {!completed && bestScore && 
+            {roll && <Rolls roll={roll} />}
+            {bestScore && 
             <span className="best-time">
                 <strong>Best time: {bestScore} sec</strong>
                 </span>
             }
-            {completed && <Congratulation time={time} roll={roll} />}
+            {completed && 
+                <Congratulation
+                    resetGameHandler={resetGameHandler} 
+                    time={time} 
+                    roll={roll} 
+                />
+            }
         </section>
     )
 }

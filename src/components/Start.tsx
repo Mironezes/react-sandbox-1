@@ -5,7 +5,7 @@ type Props = {
 
 function Start({startGame}:Props) {
     return(
-        <button className="start-btn" onClick={startGame} type="button">Start the game</button>
+        <button className="btn btn--start" onClick={startGame} type="button">Start the game</button>
     )
 }
 export default Start

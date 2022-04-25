@@ -9,10 +9,12 @@ type Props = {
     time: number,
     completed: boolean,
     rollDices: any,
+    resetGameHandler: any
     diceClickHandler: any
 }
 
-function Game({numbers, roll, time, completed, rollDices, diceClickHandler}: Props) {
+function Game({numbers, roll, time, completed, 
+    rollDices, diceClickHandler, resetGameHandler}: Props) {
     return(
         <>
             <Timer timer={time} />
@@ -20,14 +22,17 @@ function Game({numbers, roll, time, completed, rollDices, diceClickHandler}: Pro
                 numbers={numbers} 
                 diceClickHandler={diceClickHandler} 
             />
-            <Button 
-                rollDices={rollDices}
-                text={completed ? "Start again" : "Roll"}
-            /> 
+            {!completed && 
+                <Button 
+                    rollDices={rollDices}
+                    text={"Roll"}
+                /> 
+            }
             <Info 
                 roll={roll} 
                 completed={completed}
                 time={time}
+                resetGameHandler={resetGameHandler}
             />
         </>
     )

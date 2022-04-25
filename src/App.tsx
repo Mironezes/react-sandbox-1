@@ -18,7 +18,7 @@ function App() {
   const [roll, setRoll] = useState<number>(1)
   const [time, setTime] = useState<number>(0)
   const [gameStart, setGameStart] = useState<boolean>(false)
-
+  
 
   function difficultyHandler(event:any) {
     setDifficulty(prevDifficulty => {
@@ -35,8 +35,6 @@ function App() {
     value: number,
     isHeld: boolean
   }
-
-  
   function getRandomDice():IGetRandomDice {
     return {
       id: nanoid(),
@@ -46,15 +44,11 @@ function App() {
   }
 
 
-  useCallback(getRandomDice,[difficulty])
-
-
   function startGameHandler() {
-    generateNewDices()
+    setNumbers(generateNewDices())
     setGameStart(true)
   }
-
-
+  
   function generateNewDices() {
     let dices = []
     for(let i = 0; i < 10; i++) {
@@ -62,7 +56,7 @@ function App() {
     }
     return dices
   }
-  
+
 
   const bestTimeHandler = useCallback(
     () => {
@@ -107,7 +101,6 @@ function App() {
   }, [time, gameStart, completed])
 
 
-
   function diceClickHandler(id:string) {    
     setNumbers(prevNumbers => prevNumbers.map(number => {
       return number.id === id ? {...number, isHeld: !number.isHeld} : number
@@ -122,14 +115,15 @@ function App() {
         return number.isHeld ? number : getRandomDice()
       }))
     }
-    else {
+  }
+
+  function resetGameHandler() {
       setNumbers(generateNewDices())
       setRoll(1)
       setTime(0)
+      setGameStart(false)
       setCompleted(false)
-    }
   }
-
 
   return (
     <main id='main-screen'>
@@ -144,6 +138,7 @@ function App() {
           />
         : <Game 
             diceClickHandler={diceClickHandler}
+            resetGameHandler={resetGameHandler}
             completed={completed}
             time={time}
             roll={roll}

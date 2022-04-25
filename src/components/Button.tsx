@@ -6,7 +6,7 @@ type Props = {
 function Button({rollDices, text}: Props) {
     
     return(
-        <button className="roll-btn" onClick={rollDices}>{text}</button>
+        <button className="btn btn--roll" onClick={rollDices}>{text}</button>
     )
 }
 
