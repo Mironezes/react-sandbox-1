@@ -102,6 +102,7 @@ function App() {
     else {
       setNumbers(generateNewDices())
       setRoll(1)
+      setTime(0)
       setCompleted(false)
     }
   }
