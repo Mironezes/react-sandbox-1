@@ -1,8 +1,7 @@
 import Dices from "./Dices"
 import Button from "./Button"
-import Rolls from "./Rolls"
 import Timer from "./Timer"
-import Congratulation from "./Congratulation"
+import Info from './Info'
 
 type Props = {
     numbers: object[],
@@ -14,9 +13,6 @@ type Props = {
 }
 
 function Game({numbers, roll, time, completed, rollDices, diceClickHandler}: Props) {
-
-    let bestScore = localStorage.getItem('tenzies-best-time')
-
     return(
         <>
             <Timer timer={time} />
@@ -28,13 +24,11 @@ function Game({numbers, roll, time, completed, rollDices, diceClickHandler}: Pro
                 rollDices={rollDices}
                 text={completed ? "Start again" : "Roll"}
             /> 
-            {!completed && roll && <Rolls roll={roll} />}
-            {!completed && bestScore && 
-                <span className="best-time">
-                    <strong>Best time: {bestScore} sec</strong>
-                    </span>
-            }
-            {completed && <Congratulation time={time} roll={roll} />}
+            <Info 
+                roll={roll} 
+                completed={completed}
+                time={time}
+            />
         </>
     )
 }

@@ -4,7 +4,7 @@ type Props = {
 
 function Timer({timer}:Props) {
     return(
-        <div className="timer">Time: <strong>{timer}s</strong></div>
+        <div className="timer">Total time: <strong>{timer}s</strong></div>
     )
 }
 export default Timer

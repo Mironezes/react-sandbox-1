@@ -4,7 +4,7 @@ import Instructions from './components/Instructions';
 import Start from './components/Start';
 import Game from './components/Game';
 
-import './App.css';
+import './App.scss';
 
 function App() {
 
@@ -21,6 +21,7 @@ function App() {
     value: number,
     isHeld: boolean
   }
+
 
   function getRandomDice():IGetRandomDice {
     return {
@@ -105,7 +106,7 @@ function App() {
   }
 
   return (
-    <main>
+    <main id='main-screen'>
       <Instructions />
       {!gameStart 
         ? <Start 
