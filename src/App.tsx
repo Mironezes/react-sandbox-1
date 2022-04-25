@@ -101,9 +101,11 @@ function App() {
     }
     else {
       setNumbers(generateNewDices())
+      setRoll(1)
       setCompleted(false)
     }
   }
+
 
   return (
     <main id='main-screen'>
