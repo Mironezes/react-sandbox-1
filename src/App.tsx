@@ -7,13 +7,28 @@ import Game from './components/Game';
 import './App.scss';
 
 function App() {
+  interface IDifficulty {
+    preset: string,
+    amount: number
+  }
 
-  const [difficulty, setDifficulty] = useState(6)
+  const [difficulty, setDifficulty]  = useState<IDifficulty>({preset: 'Normal', amount: 6})
   const [numbers, setNumbers] = useState(generateNewDices())
-  const [completed, setCompleted] = useState(false)
-  const [roll, setRoll] = useState(1)
-  const [time, setTime] = useState(0)
-  const [gameStart, setGameStart] = useState(false)
+  const [completed, setCompleted] = useState<boolean>(false)
+  const [roll, setRoll] = useState<number>(1)
+  const [time, setTime] = useState<number>(0)
+  const [gameStart, setGameStart] = useState<boolean>(false)
+
+
+  function difficultyHandler(event:any) {
+    setDifficulty(prevDifficulty => {
+      return {
+        ...prevDifficulty,
+        preset: event.label,
+        amount: event.value
+      }
+    })
+  }
 
   interface IGetRandomDice {
     id: string,
@@ -21,13 +36,22 @@ function App() {
     isHeld: boolean
   }
 
-
+  
   function getRandomDice():IGetRandomDice {
     return {
       id: nanoid(),
-      value: Math.ceil(Math.random() * difficulty ), 
+      value: Math.ceil(Math.random() * difficulty.amount), 
       isHeld: false 
     }
+  }
+
+
+  useCallback(getRandomDice,[difficulty])
+
+
+  function startGameHandler() {
+    generateNewDices()
+    setGameStart(true)
   }
 
 
@@ -109,10 +133,14 @@ function App() {
 
   return (
     <main id='main-screen'>
-      <Instructions />
+      <Instructions 
+        gameStart={gameStart} 
+        difficultyHandler={(event:any) => difficultyHandler(event)}
+        difficulty={difficulty}
+      />
       {!gameStart 
         ? <Start 
-            startGame={() => setGameStart(true)} 
+            startGame={startGameHandler} 
           />
         : <Game 
             diceClickHandler={diceClickHandler}
