@@ -1,7 +1,8 @@
-import React from 'react';
+import {useCallback, useState, useEffect} from 'react';
+import {nanoid} from 'nanoid';
+import Instructions from './components/Instructions';
 import Start from './components/Start';
 import Game from './components/Game';
-import {nanoid} from 'nanoid';
 
 import './App.css';
 
@@ -9,14 +10,19 @@ function App() {
 
   const DIFFICULTY = 6;
   
-  const [numbers, setNumbers] = React.useState(allNewDice())
-  const [tenzie, setTenzie] = React.useState(false)
-  const [roll, setRoll] = React.useState(1)
-  const [time, setTime] = React.useState(0)
-  const [gameStart, setGameStart] = React.useState(false)
+  const [numbers, setNumbers] = useState(generateNewDices())
+  const [completed, setCompleted] = useState(false)
+  const [roll, setRoll] = useState(1)
+  const [time, setTime] = useState(0)
+  const [gameStart, setGameStart] = useState(false)
 
+  interface IGetRandomDice {
+    id: string,
+    value: number,
+    isHeld: boolean
+  }
 
-  function getRandomDice() {
+  function getRandomDice():IGetRandomDice {
     return {
       id: nanoid(),
       value: Math.ceil(Math.random() * DIFFICULTY ), 
@@ -25,42 +31,57 @@ function App() {
   }
 
 
-  function allNewDice():any[] {
-    let arr = []
+  function generateNewDices() {
+    let dices = []
     for(let i = 0; i < 10; i++) {
-        arr.push(getRandomDice())
+      dices.push(getRandomDice())
     }
-    return arr
+    return dices
   }
   
 
-  React.useEffect(() => {
-    let condition1 = numbers.every(number => {
+  const bestTimeHandler = useCallback(
+    () => {
+      if(!localStorage.getItem('tenzies-best-time') ) {
+        localStorage.setItem('tenzies-best-time', time.toString())
+      }
+      let bestTime:string = localStorage.getItem('tenzies-best-time') || ''
+      if(time < +bestTime) {
+        localStorage.setItem('tenzies-best-time', time.toString())
+      }
+    },
+    [time],
+  );
+
+
+  useEffect(() => {
+    let isAllHeld = numbers.every(number => {
       return number.isHeld
     })
     let firstValue = numbers[0].value
-    let condition2 = numbers.every(number => {
+    let isAllSame = numbers.every(number => {
       return number.value === firstValue
     })
 
-    if(condition1 && condition2) {
-        setTenzie(true)
+    if(isAllHeld && isAllSame) {
+        setCompleted(true)
         bestTimeHandler()
     }
-  }, [numbers])
+  }, [numbers, bestTimeHandler])
   
 
-  React.useEffect(() => {
-    if(gameStart && !tenzie) {
+  useEffect(() => {
+    if(gameStart && !completed) {
       const interval = setInterval(() => {
-        setTime(prevTime => prevTime +1 )
+        setTime(prevTime => prevTime + 1 )
       }, 1000)
 
       return() => {
         clearInterval(interval);
       }
     }
-  }, [time, gameStart, tenzie])
+  }, [time, gameStart, completed])
+
 
 
   function diceClickHandler(id:string) {    
@@ -71,42 +92,28 @@ function App() {
 
 
   function rollDices() {
-    if(!tenzie) {
+    if(!completed) {
       setRoll(prevRoll => prevRoll + 1)
       setNumbers(prevNumbers => prevNumbers.map(number => {
         return number.isHeld ? number : getRandomDice()
       }))
     }
     else {
-      setNumbers(allNewDice())
-      setTenzie(false)
+      setNumbers(generateNewDices())
+      setCompleted(false)
     }
   }
-
-
-  function bestTimeHandler() {
-    if(!localStorage.getItem('tenzies-best-time') ) {
-      localStorage.setItem('tenzies-best-time', time.toString())
-    }
-    let bestTime:string = localStorage.getItem('tenzies-best-time') || ''
-    if(time < +bestTime) {
-      localStorage.setItem('tenzies-best-time', time.toString())
-    }
-  }
-  
 
   return (
     <main>
-      <h1 className="title">Tenzies</h1>
-      <p className="instructions">Roll until all dice are the same. Click each die to 
-      freeze it at its current value between rolls.</p>
+      <Instructions />
       {!gameStart 
         ? <Start 
             startGame={() => setGameStart(true)} 
           />
         : <Game 
             diceClickHandler={diceClickHandler}
-            tenzie={tenzie}
+            completed={completed}
             time={time}
             roll={roll}
             numbers={numbers}
