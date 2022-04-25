@@ -8,8 +8,7 @@ import './App.scss';
 
 function App() {
 
-  const DIFFICULTY = 6;
-  
+  const [difficulty, setDifficulty] = useState(6)
   const [numbers, setNumbers] = useState(generateNewDices())
   const [completed, setCompleted] = useState(false)
   const [roll, setRoll] = useState(1)
@@ -26,7 +25,7 @@ function App() {
   function getRandomDice():IGetRandomDice {
     return {
       id: nanoid(),
-      value: Math.ceil(Math.random() * DIFFICULTY ), 
+      value: Math.ceil(Math.random() * difficulty ), 
       isHeld: false 
     }
   }

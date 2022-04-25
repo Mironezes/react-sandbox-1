@@ -42,6 +42,21 @@ body {
         }
     }
 
+    #difficulty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        margin: 0 auto;
+        margin-top: 20px;
+
+        select {
+            margin-left: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+    }
+
     .roll-btn,
     .start-btn {
         display: block;
