@@ -1,5 +1,5 @@
 
-import Select from 'react-select'
+import Select from "react-select"
 
 type Props = {
     difficultyHandler: any
@@ -9,10 +9,10 @@ type Props = {
 function Difficulty({difficultyHandler, difficulty}:Props) {
 
     let options = [
-        { value: 4, label: 'Easy' },
-        { value: 6, label: 'Normal' },
+        { value: 4, label: "Easy" },
+        { value: 6, label: "Normal" },
     ]
-    let selected = {value: 6, label: 'Normal'}
+    let selected = {value: 6, label: "Normal"}
 
     return(
         <label id="difficulty">

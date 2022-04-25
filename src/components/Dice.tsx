@@ -13,7 +13,7 @@ function Dice({data, diceClickHandler}: Props) {
     return(
         <div 
             onClick={diceClickHandler} 
-            className={`dice dice-${data.value} ${data.isHeld ? "held" : ''}`}
+            className={`dice dice-${data.value} ${data.isHeld ? "held" : ""}`}
         >
             {diceValue}
         </div>

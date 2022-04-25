@@ -1,74 +1,49 @@
-import {useCallback, useState, useEffect} from 'react';
-import {nanoid} from 'nanoid';
-import Instructions from './components/Instructions';
-import Start from './components/Start';
-import Game from './components/Game';
+import {useCallback, useState, useEffect} from "react";
+import {nanoid} from "nanoid";
+import Instructions from "./components/Instructions";
+import Start from "./components/Start";
+import Game from "./components/Game";
 
-import './App.scss';
+import "./App.scss";
+
+type TDifficulty = {
+  preset: string,
+  amount: number
+}
+
+type TGetRandomDice = {
+  id: string,
+  value: number,
+  isHeld: boolean
+}
+
+type TDifficultyEvent = {
+  label: string,
+  value: number
+}
+
 
 function App() {
-  interface IDifficulty {
-    preset: string,
-    amount: number
-  }
-
-  const [difficulty, setDifficulty]  = useState<IDifficulty>({preset: 'Normal', amount: 6})
+  
+  const [difficulty, setDifficulty]  = useState<TDifficulty>({preset: "Normal", amount: 6})
   const [numbers, setNumbers] = useState(generateNewDices())
   const [completed, setCompleted] = useState<boolean>(false)
   const [roll, setRoll] = useState<number>(1)
-  const [time, setTime] = useState<number>(0)
-  const [gameStart, setGameStart] = useState<boolean>(false)
+  const [timer, setTime] = useState<number>(0)
+  const [gameStarted, setGameStarted] = useState<boolean>(false)
   
-
-  function difficultyHandler(event:any) {
-    setDifficulty(prevDifficulty => {
-      return {
-        ...prevDifficulty,
-        preset: event.label,
-        amount: event.value
-      }
-    })
-  }
-
-  interface IGetRandomDice {
-    id: string,
-    value: number,
-    isHeld: boolean
-  }
-  function getRandomDice():IGetRandomDice {
-    return {
-      id: nanoid(),
-      value: Math.ceil(Math.random() * difficulty.amount), 
-      isHeld: false 
-    }
-  }
-
-
-  function startGameHandler() {
-    setNumbers(generateNewDices())
-    setGameStart(true)
-  }
-  
-  function generateNewDices() {
-    let dices = []
-    for(let i = 0; i < 10; i++) {
-      dices.push(getRandomDice())
-    }
-    return dices
-  }
-
 
   const bestTimeHandler = useCallback(
     () => {
-      if(!localStorage.getItem('tenzies-best-time') ) {
-        localStorage.setItem('tenzies-best-time', time.toString())
+      if(!localStorage.getItem("tenzies-best-time") ) {
+        localStorage.setItem("tenzies-best-time", timer.toString())
       }
-      let bestTime:string = localStorage.getItem('tenzies-best-time') || ''
-      if(time < +bestTime) {
-        localStorage.setItem('tenzies-best-time', time.toString())
+      let bestTime:string = localStorage.getItem("tenzies-best-time") || ""
+      if(timer < +bestTime) {
+        localStorage.setItem("tenzies-best-time", timer.toString())
       }
     },
-    [time],
+    [timer],
   );
 
 
@@ -89,7 +64,7 @@ function App() {
   
 
   useEffect(() => {
-    if(gameStart && !completed) {
+    if(gameStarted && !completed) {
       const interval = setInterval(() => {
         setTime(prevTime => prevTime + 1 )
       }, 1000)
@@ -98,17 +73,51 @@ function App() {
         clearInterval(interval);
       }
     }
-  }, [time, gameStart, completed])
+  }, [timer, gameStarted, completed])
 
 
-  function diceClickHandler(id:string) {    
+  function difficultyHandler(event:TDifficultyEvent) {
+    setDifficulty(prevDifficulty => {
+      return {
+        ...prevDifficulty,
+        preset: event.label,
+        amount: event.value
+      }
+    })
+  }
+
+
+  function getRandomDice():TGetRandomDice {
+    return {
+      id: nanoid(),
+      value: Math.ceil(Math.random() * difficulty.amount), 
+      isHeld: false 
+    }
+  }
+
+
+  function startGameHandler():void {
+    setNumbers(generateNewDices())
+    setGameStarted(true)
+  }
+  
+  function generateNewDices():TGetRandomDice[] {
+    let dices = []
+    for(let i = 0; i < 10; i++) {
+      dices.push(getRandomDice())
+    }
+    return dices
+  }
+
+
+  function diceClickHandler(id:string):void {    
     setNumbers(prevNumbers => prevNumbers.map(number => {
       return number.id === id ? {...number, isHeld: !number.isHeld} : number
     }))
   }
 
 
-  function rollDices() {
+  function rollDices():void {
     if(!completed) {
       setRoll(prevRoll => prevRoll + 1)
       setNumbers(prevNumbers => prevNumbers.map(number => {
@@ -117,22 +126,24 @@ function App() {
     }
   }
 
-  function resetGameHandler() {
+
+  function resetGameHandler():void {
       setNumbers(generateNewDices())
       setRoll(1)
       setTime(0)
-      setGameStart(false)
+      setGameStarted(false)
       setCompleted(false)
   }
 
+
   return (
-    <main id='main-screen'>
+    <main id="main-screen">
       <Instructions 
-        gameStart={gameStart} 
+        gameStarted={gameStarted} 
         difficultyHandler={(event:any) => difficultyHandler(event)}
         difficulty={difficulty}
       />
-      {!gameStart 
+      {!gameStarted 
         ? <Start 
             startGame={startGameHandler} 
           />
@@ -140,7 +151,7 @@ function App() {
             diceClickHandler={diceClickHandler}
             resetGameHandler={resetGameHandler}
             completed={completed}
-            time={time}
+            timer={timer}
             roll={roll}
             numbers={numbers}
             rollDices={rollDices}

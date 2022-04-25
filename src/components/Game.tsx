@@ -1,23 +1,23 @@
 import Dices from "./Dices"
 import Button from "./Button"
 import Timer from "./Timer"
-import Info from './Info'
+import Info from "./Info"
 
 type Props = {
     numbers: object[],
     roll: number,
-    time: number,
+    timer: number,
     completed: boolean,
     rollDices: any,
     resetGameHandler: any
     diceClickHandler: any
 }
 
-function Game({numbers, roll, time, completed, 
+function Game({numbers, roll, timer, completed, 
     rollDices, diceClickHandler, resetGameHandler}: Props) {
     return(
         <>
-            <Timer timer={time} />
+            <Timer timer={timer} />
             <Dices 
                 numbers={numbers} 
                 diceClickHandler={diceClickHandler} 
@@ -31,7 +31,7 @@ function Game({numbers, roll, time, completed,
             <Info 
                 roll={roll} 
                 completed={completed}
-                time={time}
+                timer={timer}
                 resetGameHandler={resetGameHandler}
             />
         </>

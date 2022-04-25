@@ -1,4 +1,4 @@
-import Dice from './Dice'
+import Dice from "./Dice"
 
 type Props = {
     numbers: any[],

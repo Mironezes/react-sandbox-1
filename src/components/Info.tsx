@@ -5,14 +5,14 @@ import Congratulation from "./Congratulation"
 type Props = {
     roll: number,
     completed: boolean,
-    time: number
+    timer: number
     resetGameHandler: any
 }
 
 
-function Info({roll, completed, time, resetGameHandler}:Props) {
+function Info({roll, completed, timer, resetGameHandler}:Props) {
 
-    let bestScore = localStorage.getItem('tenzies-best-time')
+    let bestScore = localStorage.getItem("tenzies-best-time")
 
     return(
         <section className="panel">
@@ -25,7 +25,7 @@ function Info({roll, completed, time, resetGameHandler}:Props) {
             {completed && 
                 <Congratulation
                     resetGameHandler={resetGameHandler} 
-                    time={time} 
+                    timer={timer} 
                     roll={roll} 
                 />
             }
