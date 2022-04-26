@@ -1,10 +1,10 @@
-import {useCallback, useState, useEffect} from "react";
-import {nanoid} from "nanoid";
-import Instructions from "./components/Instructions";
-import Start from "./components/Start";
-import Game from "./components/Game";
+import {useCallback, useState, useEffect} from "react"
+import {nanoid} from "nanoid"
+import Instructions from "./components/Instructions"
+import Game from "./components/Game"
+import Button  from "@mui/material/Button"
 
-import "./App.scss";
+import "./App.scss"
 
 type TDifficulty = {
   preset: string,
@@ -144,9 +144,12 @@ function App() {
         difficulty={difficulty}
       />
       {!gameStarted 
-        ? <Start 
-            startGame={startGameHandler} 
-          />
+        ? <Button 
+            onClick={startGameHandler}
+            className="btn btn--start" 
+          >Start the game 
+          </Button>
+        
         : <Game 
             diceClickHandler={diceClickHandler}
             resetGameHandler={resetGameHandler}

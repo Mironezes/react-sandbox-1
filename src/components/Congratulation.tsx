@@ -1,4 +1,5 @@
 import {useState} from "react"
+import Button  from "@mui/material/Button"
 
 type Props = {
     roll: number,
@@ -15,12 +16,12 @@ function Congratulation({roll, timer, resetGameHandler}: Props) {
         <div className={`congratulation ${modal ? "open" : ""}`}>
             <h3>Congratulations!</h3>
             <span>You resolved this puzzle in {roll} rolls and {timer} seconds</span>
-            <button 
+            <Button 
                 className="btn btn--reset"
                 onClick={() => {setModal(!setModal); resetGameHandler()}}
             >
                 Start again
-            </button>
+            </Button>
         </div>
         <div className="modal-backdrop"></div>
         </>

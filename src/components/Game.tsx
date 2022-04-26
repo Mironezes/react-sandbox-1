@@ -1,7 +1,7 @@
 import Dices from "./Dices"
-import Button from "./Button"
 import Timer from "./Timer"
 import Info from "./Info"
+import Button from '@mui/material/Button'
 
 type Props = {
     numbers: object[],
@@ -24,9 +24,12 @@ function Game({numbers, roll, timer, completed,
             />
             {!completed && 
                 <Button 
-                    rollDices={rollDices}
-                    text={"Roll"}
-                /> 
+                    variant="contained"
+                    onClick={rollDices}
+                    className="btn btn-roll"
+                >
+                    Roll
+                </Button>
             }
             <Info 
                 roll={roll} 

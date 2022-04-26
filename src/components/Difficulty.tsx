@@ -3,10 +3,9 @@ import Select from "react-select"
 
 type Props = {
     difficultyHandler: any
-    difficulty: any
 }
 
-function Difficulty({difficultyHandler, difficulty}:Props) {
+function Difficulty({difficultyHandler}:Props) {
 
     let options = [
         { value: 4, label: "Easy" },

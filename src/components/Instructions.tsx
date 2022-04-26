@@ -15,7 +15,6 @@ function Instructions({gameStarted, difficulty, difficultyHandler}:Props) {
 
         {!gameStarted && 
             <Difficulty  
-                difficulty={difficulty}
                 difficultyHandler={difficultyHandler} 
             /> 
         }
