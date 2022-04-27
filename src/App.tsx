@@ -157,7 +157,8 @@ function App() {
           <Button 
             onClick={startGameHandler}
             className="btn btn--start" 
-          >{translation('start')} 
+          >
+            {translation('start-game.label')} 
           </Button>
         </>
         : <Game 

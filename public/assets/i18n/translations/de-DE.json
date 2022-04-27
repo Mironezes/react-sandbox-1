@@ -1,7 +1,15 @@
 {
-    "start": "Start des Spiels",
-    "mode": "Modus",
-    "instruction": "Würfle, bis alle Würfel gleich sind. Klicken Sie auf jeden Würfel, um ihn zwischen den Würfen auf seinem aktuellen Wert einzufrieren.",
-    "easy": "Einfach",
-    "normal": "Standard"
-}
+    "start-game.label": "Start des Spiels",
+    "repeat-game.label": "Neu anfangen",
+    "roll-btn.label": "Rolle",
+    "mode.label": "Modus",
+    "instruction.label": "RWürfle, bis alle Würfel gleich sind. Klicken Sie auf jeden Würfel, um ihn zwischen den Würfen auf seinem aktuellen Wert einzufrieren.",
+    "easy.label": "Einfach",
+    "normal.label": "Standard",
+    "congratulation.label": "Gratulation!",
+    "best-time.label": "Beste Zeit",
+    "total-time.label": "Gesamtzeit",
+    "completed1.label": "Sie haben dieses Rätsel in gelöst",
+    "completed2.label": "Rollt und",
+    "completed3.label": "Sekunden"
+  }

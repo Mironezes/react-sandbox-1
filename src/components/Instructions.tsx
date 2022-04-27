@@ -10,7 +10,7 @@ function Instructions({gameStarted, difficultyHandler, translation}:Props) {
     return(
         <>
         <h1 className="title">Tenzies</h1>
-        <p className="instructions">{translation('instruction')} </p>
+        <p className="instructions">{translation('instruction.label')} </p>
 
         {!gameStarted && 
             <Difficulty  

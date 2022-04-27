@@ -14,11 +14,14 @@ type Props = {
     translation: Function
 }
 
-function Game({numbers, roll, timer, completed, 
+function Game({numbers, roll, timer, completed, translation,
     rollDices, diceClickHandler, resetGameHandler}: Props) {
     return(
         <>
-            <Timer timer={timer} />
+            <Timer
+                translation={translation} 
+                timer={timer} 
+            />
             <Dices 
                 numbers={numbers} 
                 diceClickHandler={diceClickHandler} 
@@ -29,7 +32,7 @@ function Game({numbers, roll, timer, completed,
                     onClick={rollDices}
                     className="btn btn-roll"
                 >
-                    Roll
+                    {translation("roll-btn.label")}
                 </Button>
             }
             <Info 
@@ -37,6 +40,7 @@ function Game({numbers, roll, timer, completed,
                 completed={completed}
                 timer={timer}
                 resetGameHandler={resetGameHandler}
+                translation={translation}
             />
         </>
     )

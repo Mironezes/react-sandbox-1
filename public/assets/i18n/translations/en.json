@@ -1,7 +1,15 @@
 {
-  "start": "Start the game",
-  "mode": "Mode",
-  "instruction": "Roll until all dice are the same. Click each die to freeze it at its current value between rolls.",
-  "easy": "Easy",
-  "normal": "Normal"
+  "start-game.label": "Start the game",
+  "repeat-game.label": "Start again",
+  "roll-btn.label": "Roll",
+  "mode.label": "Mode",
+  "instruction.label": "Roll until all dice are the same. Click each die to freeze it at its current value between rolls.",
+  "easy.label": "Easy",
+  "normal.label": "Normal",
+  "congratulation.label": "Congratulations!",
+  "best-time.label": "Best time",
+  "total-time.label": "Total time",
+  "completed1.label": "You resolved this puzzle in",
+  "completed2.label": "rolls and",
+  "completed3.label": "seconds"
 }

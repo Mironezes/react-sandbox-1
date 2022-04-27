@@ -4,23 +4,24 @@ import Button  from "@mui/material/Button"
 type Props = {
     roll: number,
     timer: number
-    resetGameHandler: any
+    resetGameHandler: any,
+    translation: Function,
 }
 
-function Congratulation({roll, timer, resetGameHandler}: Props) {
+function Congratulation({roll, timer, translation, resetGameHandler}: Props) {
     document.body.classList.add("backdrop")
     const [modal, setModal] = useState(true)
     
     return(
         <>
         <div className={`congratulation ${modal ? "open" : ""}`}>
-            <h3>Congratulations!</h3>
-            <span>You resolved this puzzle in {roll} rolls and {timer} seconds</span>
+            <h3>{translation("congratulation.label")}</h3>
+            <span>{translation("completed1.label")} {roll} {translation("completed2.label")} {timer} {translation("completed3.label")}</span>
             <Button 
                 className="btn btn--reset"
                 onClick={() => {setModal(!setModal); resetGameHandler()}}
             >
-                Start again
+                {translation("repeat-game.label")}
             </Button>
         </div>
         <div className="modal-backdrop"></div>

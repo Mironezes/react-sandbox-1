@@ -9,14 +9,14 @@ type Props = {
 function Difficulty({difficultyHandler, translation}:Props) {
 
     let options = [
-        { value: 4, label: translation("easy") },
-        { value: 6, label: translation("normal") },
+        { value: 4, label: translation("easy.label") },
+        { value: 6, label: translation("normal.label") },
     ]
-    let selected = {value: 6, label: translation("normal")}
+    let selected = {value: 6, label: translation("normal.label")}
 
     return(
         <label id="difficulty">
-            <strong>{translation("mode")}:</strong>
+            <strong>{translation("mode.label")}:</strong>
             <Select 
                 onChange={difficultyHandler} 
                 defaultValue={selected}

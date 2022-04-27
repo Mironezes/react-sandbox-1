@@ -1,12 +1,13 @@
 type Props = {
-    roll: number
+    roll: number,
+    translation: Function
 }
 
-function Rolls({roll}: Props) {
+function Rolls({roll, translation}: Props) {
     
     return(
         <>
-            <span className="rolls-count">Current roll: {roll}</span>
+            <span className="rolls-count">{translation("roll-btn.label")}: {roll}</span>
         </>
     )
 }
