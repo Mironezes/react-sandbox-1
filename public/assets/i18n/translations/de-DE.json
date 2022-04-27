@@ -1,0 +1,7 @@
+{
+    "start": "Start des Spiels",
+    "mode": "Modus",
+    "instruction": "Würfle, bis alle Würfel gleich sind. Klicken Sie auf jeden Würfel, um ihn zwischen den Würfen auf seinem aktuellen Wert einzufrieren.",
+    "easy": "Einfach",
+    "normal": "Standard"
+}

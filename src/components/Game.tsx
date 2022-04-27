@@ -11,6 +11,7 @@ type Props = {
     rollDices: any,
     resetGameHandler: any
     diceClickHandler: any
+    translation: Function
 }
 
 function Game({numbers, roll, timer, completed, 

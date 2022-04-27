@@ -1,0 +1,7 @@
+{
+  "start": "Start the game",
+  "mode": "Mode",
+  "instruction": "Roll until all dice are the same. Click each die to freeze it at its current value between rolls.",
+  "easy": "Easy",
+  "normal": "Normal"
+}

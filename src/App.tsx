@@ -1,5 +1,7 @@
 import {useCallback, useState, useEffect} from "react"
+import {useTranslation} from 'react-i18next'
 import {nanoid} from "nanoid"
+import LangSwitcher from "./components/LangSwitcher"
 import Instructions from "./components/Instructions"
 import Game from "./components/Game"
 import Button  from "@mui/material/Button"
@@ -25,6 +27,7 @@ type TDifficultyEvent = {
 
 function App() {
   
+  const { t:translation, i18n } = useTranslation()  
   const [difficulty, setDifficulty]  = useState<TDifficulty>({preset: "Normal", amount: 6})
   const [numbers, setNumbers] = useState(generateNewDices())
   const [completed, setCompleted] = useState<boolean>(false)
@@ -32,6 +35,9 @@ function App() {
   const [timer, setTime] = useState<number>(0)
   const [gameStarted, setGameStarted] = useState<boolean>(false)
   
+  const switchLang = (event: React.ChangeEvent<HTMLInputElement>) => {
+    i18n.changeLanguage(event.target.value)
+  }
 
   const bestTimeHandler = useCallback(
     () => {
@@ -138,18 +144,22 @@ function App() {
 
   return (
     <main id="main-screen">
-      <Instructions 
-        gameStarted={gameStarted} 
-        difficultyHandler={(event:any) => difficultyHandler(event)}
-        difficulty={difficulty}
-      />
-      {!gameStarted 
-        ? <Button 
+      {!gameStarted ?
+        <>
+          <LangSwitcher 
+            switchLang={switchLang} 
+          />
+          <Instructions 
+            gameStarted={gameStarted} 
+            difficultyHandler={(event:any) => difficultyHandler(event)}
+            translation={translation}
+          />
+          <Button 
             onClick={startGameHandler}
             className="btn btn--start" 
-          >Start the game 
+          >{translation('start')} 
           </Button>
-        
+        </>
         : <Game 
             diceClickHandler={diceClickHandler}
             resetGameHandler={resetGameHandler}
@@ -158,6 +168,7 @@ function App() {
             roll={roll}
             numbers={numbers}
             rollDices={rollDices}
+            translation={translation}
           />
       }
     </main>

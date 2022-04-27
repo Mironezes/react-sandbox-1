@@ -2,20 +2,20 @@ import Difficulty from "./Difficulty"
 
 type Props = {
     gameStarted: boolean,
-    difficulty: any,
-    difficultyHandler: any
+    translation: Function,
+    difficultyHandler: object
 }
 
-function Instructions({gameStarted, difficulty, difficultyHandler}:Props) {
+function Instructions({gameStarted, difficultyHandler, translation}:Props) {
     return(
         <>
         <h1 className="title">Tenzies</h1>
-        <p className="instructions">Roll until all dice are the same. Click each die to 
-        freeze it at its current value between rolls.</p>
+        <p className="instructions">{translation('instruction')} </p>
 
         {!gameStarted && 
             <Difficulty  
                 difficultyHandler={difficultyHandler} 
+                translation={translation} 
             /> 
         }
         </>
